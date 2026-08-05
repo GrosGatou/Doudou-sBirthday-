@@ -10,7 +10,7 @@
   <div id="app">
     <main id="screen-home" class="screen active">
       <div class="center-block">
-        <img src="assets/PhotoTete.png" alt="PhotoTete" class="main-photo" />
+        <img src="PhotoTete.png" alt="PhotoTete" class="main-photo" />
         <h1>Joyeux anniversaire au plus intelligent, plus beau, plus drôle des Doudou</h1>
         <button class="primary-btn" id="start-btn">ET ZÉ PARTI</button>
       </div>
@@ -22,17 +22,17 @@
 
         <div class="games-grid">
           <div class="game-card locked" id="card-game1">
-            <img src="assets/Jeu1.png" alt="Jeu1" />
+            <img src="Jeu1.png" alt="Jeu1" />
             <p>Tap Taupe Vache</p>
           </div>
 
           <div class="game-card locked" id="card-game2">
-            <img src="assets/Jeu2.png" alt="Jeu2" />
+            <img src="Jeu2.png" alt="Jeu2" />
             <p>Le cœur capricieux</p>
           </div>
 
           <div class="game-card locked" id="card-game3">
-            <img src="assets/Jeu3.png" alt="Jeu3" />
+            <img src="Jeu3.png" alt="Jeu3" />
             <p>Roi Couette-Couette</p>
           </div>
         </div>
@@ -67,7 +67,9 @@
     <main id="screen-game2" class="screen">
       <div class="game-page heart-page">
         <h2>Le cœur capricieux</h2>
-        <div id="heart" class="heart">❤</div>
+        <div id="heart" class="heart-wrap">
+          <img src="coeur.png" alt="coeur" class="heart-img" />
+        </div>
       </div>
     </main>
 
@@ -76,17 +78,19 @@
         <h2>Roi Couette-Couette</h2>
         <div class="chess-scene">
           <div class="bed-zone" id="bed-zone">
-            <img src="assets/lit.png" alt="Lit" class="bed-img" />
-            <img src="assets/couette.png" alt="Couette" class="blanket-img" />
+            <img src="lit.png" alt="Lit" class="bed-img" />
+            <div class="blanket-zone">
+              <img src="couette.png" alt="Couette" class="blanket-img" />
+            </div>
             <div class="drop-zone-label">Glisse le roi sous la couette</div>
           </div>
 
           <div class="side-table">
-            <img src="assets/lampe.png" alt="Lampe" class="lamp-img" />
+            <img src="cadenas.png" alt="Cadenas" class="lamp-img" />
           </div>
 
           <div id="king-piece" class="king-piece" draggable="true">
-            <img src="assets/roi.png" alt="Roi" />
+            <img src="roi.png" alt="Roi" />
           </div>
         </div>
       </div>
@@ -96,9 +100,10 @@
       <div class="final-page">
         <h1>Ton cadeau</h1>
         <div class="gift-area">
-          <img src="assets/cadeau.png" alt="Cadeau" id="gift" class="gift" />
+          <img src="cadeau.png" alt="Cadeau" id="gift" class="gift" />
+          <img src="confettis.png" alt="Confettis" id="confettis" class="confettis hidden" />
         </div>
-        <div class="gift-message" id="gift-message">
+        <div class="gift-message hidden" id="gift-message">
           <p>Un bon pour un massage plein de crème</p>
         </div>
       </div>
