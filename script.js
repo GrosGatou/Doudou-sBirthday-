@@ -110,10 +110,6 @@ const gridEl = document.getElementById("game1-grid");
 const minusAnim = document.getElementById("minus-anim");
 const startGame1Btn = document.getElementById("start-game1");
 
-function randomItem() {
-  return Math.random() < 0.65 ? "vache" : "courgette";
-}
-
 function clearGame1() {
   gridEl.innerHTML = "";
   for (let i = 0; i < 25; i++) {
@@ -124,16 +120,22 @@ function clearGame1() {
   game1GridBuilt = true;
 }
 
+function randomItem() {
+  return Math.random() < 0.65 ? "vache" : "courgette";
+}
+
 function spawnGame1Item() {
   const cells = [...document.querySelectorAll("#game1-grid .cell")];
   cells.forEach(c => c.innerHTML = "");
   const index = Math.floor(Math.random() * cells.length);
   const type = randomItem();
   const img = document.createElement("img");
-  img.src = type === "vache" ? "assets/vache.png" : "assets/courgette.png";
+  img.src = type === "vache" ? "vache.png" : "courgette.png";
   img.alt = type;
+
   img.addEventListener("click", () => {
     if (!game1Running) return;
+
     if (type === "vache") {
       game1Score += 1;
       scoreEl.textContent = game1Score;
@@ -142,6 +144,7 @@ function spawnGame1Item() {
       game1Malus += 1;
       scoreEl.textContent = game1Score;
       malusEl.textContent = game1Malus;
+
       minusAnim.classList.add("show");
       const rect = img.getBoundingClientRect();
       minusAnim.style.left = `${rect.left + rect.width / 2}px`;
@@ -153,6 +156,7 @@ function spawnGame1Item() {
       endGame1(true);
     }
   });
+
   cells[index].appendChild(img);
 }
 
@@ -163,11 +167,12 @@ function endGame1(success) {
 
   if (success) {
     openPopup(`
-      <img src="assets/steack.png" alt="Steack">
+      <img src="steack.png" alt="Steack">
       <h3>Bravo, voilà ton steack !</h3>
       <p>Alors lui tu l’as pas volé !</p>
       <button id="back-menu-1">Retour aux mini-jeux</button>
     `);
+
     document.getElementById("back-menu-1").addEventListener("click", () => {
       closePopup();
       showScreen("menu");
@@ -178,6 +183,7 @@ function endGame1(success) {
       <h3>Tu mérites pas ton steack</h3>
       <button id="retry-game-1">Recommencer</button>
     `);
+
     document.getElementById("retry-game-1").addEventListener("click", () => {
       closePopup();
       showScreen("game1");
@@ -188,10 +194,12 @@ function endGame1(success) {
 
 function setupGame1() {
   if (!game1GridBuilt) clearGame1();
+
   game1Running = false;
   game1Score = 0;
   game1Malus = 0;
   game1Timer = 10;
+
   scoreEl.textContent = "0";
   malusEl.textContent = "0";
   timerEl.textContent = "10";
@@ -202,6 +210,7 @@ function setupGame1() {
 
   startGame1Btn.onclick = () => {
     if (game1Running) return;
+
     game1Running = true;
     game1Score = 0;
     game1Malus = 0;
@@ -210,17 +219,19 @@ function setupGame1() {
     malusEl.textContent = "0";
     timerEl.textContent = "10";
 
-    game1Spawner = setInterval(spawnGame1Item, 900);
     spawnGame1Item();
+    game1Spawner = setInterval(spawnGame1Item, 900);
 
     game1Interval = setInterval(() => {
       game1Timer -= 1;
       timerEl.textContent = game1Timer;
-      if (game1Timer <= 0 && game1Score < 6) {
-        endGame1(false);
-      }
-      if (game1Timer <= 0 && game1Score >= 6) {
-        endGame1(true);
+
+      if (game1Timer <= 0) {
+        if (game1Score >= 6) {
+          endGame1(true);
+        } else {
+          endGame1(false);
+        }
       }
     }, 1000);
   };
@@ -238,29 +249,33 @@ function setupGame2() {
 }
 
 heart.addEventListener("click", () => {
-  if (screens.game2.classList.contains("active")) {
-    heartClicks += 1;
-    const scale = 1 + heartClicks * 0.08;
-    const maxX = window.innerWidth - 80;
-    const maxY = window.innerHeight - 80;
-    const x = 40 + Math.random() * maxX;
-    const y = 120 + Math.random() * (maxY - 160);
-    heart.style.left = `${x}px`;
-    heart.style.top = `${y}px`;
-    heart.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  if (!screens.game2.classList.contains("active")) return;
 
-    if (heartClicks >= 10) {
-      openPopup(`
-        <img src="assets/cadenas.png" alt="Cadenas">
-        <h3>Tiens mon cœur, fais-en bon usage</h3>
-        <button id="back-menu-2">Retour aux mini-jeux</button>
-      `);
-      document.getElementById("back-menu-2").addEventListener("click", () => {
-        closePopup();
-        showScreen("menu");
-        markGameComplete(2);
-      });
-    }
+  if (heartClicks >= 10) return;
+
+  heartClicks += 1;
+  const scale = 1 + heartClicks * 0.08;
+  const maxX = window.innerWidth - 120;
+  const maxY = window.innerHeight - 140;
+  const x = 60 + Math.random() * maxX;
+  const y = 120 + Math.random() * maxY;
+
+  heart.style.left = `${x}px`;
+  heart.style.top = `${y}px`;
+  heart.style.transform = `translate(-50%, -50%) scale(${scale})`;
+
+  if (heartClicks >= 10) {
+    openPopup(`
+      <img src="cadenas.png" alt="Cadenas">
+      <h3>Tiens mon cœur, fais-en bon usage</h3>
+      <button id="back-menu-2">Retour aux mini-jeux</button>
+    `);
+
+    document.getElementById("back-menu-2").addEventListener("click", () => {
+      closePopup();
+      showScreen("menu");
+      markGameComplete(2);
+    });
   }
 });
 
@@ -268,15 +283,11 @@ heart.addEventListener("click", () => {
 const kingPiece = document.getElementById("king-piece");
 const bedZone = document.getElementById("bed-zone");
 let kingDropped = false;
-let dragOffsetX = 0;
-let dragOffsetY = 0;
-let dragging = false;
 
 function setupGame3() {
   kingDropped = false;
   kingPiece.style.left = "10%";
   kingPiece.style.top = "20%";
-  kingPiece.style.position = "absolute";
 }
 
 kingPiece.addEventListener("dragstart", (e) => {
@@ -291,12 +302,14 @@ bedZone.addEventListener("dragover", (e) => {
 bedZone.addEventListener("drop", (e) => {
   e.preventDefault();
   if (kingDropped) return;
+
   kingDropped = true;
   openPopup(`
-    <img src="assets/RoiCouetteCouette.png" alt="Roi Couette-Couette">
+    <img src="RoiCouetteCouette.png" alt="Roi Couette-Couette">
     <h3>Le seul et unique Roi Couette-Couette</h3>
     <button id="back-menu-3">Retour aux mini-jeux</button>
   `);
+
   document.getElementById("back-menu-3").addEventListener("click", () => {
     closePopup();
     showScreen("menu");
@@ -307,20 +320,27 @@ bedZone.addEventListener("drop", (e) => {
 /* FINAL GIFT */
 const gift = document.getElementById("gift");
 const giftMessage = document.getElementById("gift-message");
+const confettis = document.getElementById("confettis");
 let giftClicks = 0;
+let giftOpened = false;
 
 gift.addEventListener("click", () => {
   if (!screens.final.classList.contains("active")) return;
+  if (giftOpened) return;
+
   giftClicks += 1;
   gift.classList.add("shake");
 
   if (giftClicks >= 5) {
+    giftOpened = true;
     gift.classList.remove("shake");
-    giftMessage.style.display = "block";
     gift.style.transform = "scale(0.95)";
+    confettis.classList.remove("hidden");
+    giftMessage.classList.remove("hidden");
+
     setTimeout(() => {
       gift.style.transform = "scale(1)";
-    }, 100);
+    }, 120);
   }
 });
 
