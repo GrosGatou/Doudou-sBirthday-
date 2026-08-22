@@ -10,8 +10,11 @@
   <div id="app">
     <main id="screen-home" class="screen active">
       <div class="center-block">
-        <img src="kingsss.png" alt="photoTete" class="main-photo" />
-        <h1>Joyeux anniversaire au plus intelligent, plus beau, plus drôle des Doudou</h1>
+        <img src="kingsss.png" alt="Photo de bienvenue" class="main-photo" />
+        <h1>
+          Joyeux anniversaire au plus intelligent, plus beau,
+          plus drôle des Doudou
+        </h1>
         <button class="primary-btn" id="start-btn">ET ZÉ PARTI</button>
       </div>
     </main>
@@ -22,17 +25,17 @@
 
         <div class="games-grid">
           <div class="game-card locked" id="card-game1">
-            <img src="Jeu1.png" alt="Jeu1" />
+            <img src="Jeu1.png" alt="Jeu 1" />
             <p>Tap Taupe Vache</p>
           </div>
 
           <div class="game-card locked" id="card-game2">
-            <img src="Jeu2.png" alt="Jeu2" />
+            <img src="Jeu2.png" alt="Jeu 2" />
             <p>Le cœur capricieux</p>
           </div>
 
           <div class="game-card locked" id="card-game3">
-            <img src="Jeu3.png" alt="Jeu3" />
+            <img src="Jeu3.png" alt="Jeu 3" />
             <p>Roi Couette-Couette</p>
           </div>
         </div>
@@ -49,8 +52,12 @@
     <main id="screen-game1" class="screen">
       <div class="game-page">
         <h2>Tap Taupe Vache</h2>
+
         <div class="game1-topbar">
-          <button class="secondary-btn" id="start-game1">Lancer le jeu</button>
+          <button class="secondary-btn" id="start-game1">
+            Lancer le jeu
+          </button>
+
           <div class="stats">
             <div>Points : <span id="score">0</span></div>
             <div>Malus : <span id="malus">0</span></div>
@@ -70,7 +77,7 @@
 
         <div class="heart-game-box" id="heart-game-box">
           <div id="heart" class="heart-wrap">
-            <img src="coeur.png" alt="coeur" class="heart-img" />
+            <img src="coeur.png" alt="Cœur" class="heart-img" />
           </div>
         </div>
       </div>
@@ -79,17 +86,13 @@
     <main id="screen-game3" class="screen">
       <div class="game-page chess-page">
         <h2>Roi Couette-Couette</h2>
+
         <div class="chess-scene">
           <div class="bed-zone" id="bed-zone">
             <img src="lit.png" alt="Lit" class="bed-img" />
-            <div class="blanket-zone">
-              <img src="couette.png" alt="Couette" class="blanket-img" />
+            <div class="drop-zone-label">
+              Glisse le roi dans le lit
             </div>
-            <div class="drop-zone-label">Glisse le roi sous la couette</div>
-          </div>
-
-          <div class="side-table">
-            <img src="cadenas.png" alt="Cadenas" class="lamp-img" />
           </div>
 
           <div id="king-piece" class="king-piece" draggable="true">
@@ -102,10 +105,17 @@
     <main id="screen-final" class="screen">
       <div class="final-page">
         <h1>Ton cadeau</h1>
+
         <div class="gift-area">
           <img src="cadeau.png" alt="Cadeau" id="gift" class="gift" />
-          <img src="confettis.png" alt="Confettis" id="confettis" class="confettis hidden" />
+          <img
+            src="confettis.png"
+            alt="Confettis"
+            id="confettis"
+            class="confettis hidden"
+          />
         </div>
+
         <div class="gift-message hidden" id="gift-message">
           <p>Un bon pour un massage plein de crème</p>
         </div>
