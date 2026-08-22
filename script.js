@@ -250,15 +250,32 @@ function setupGame2() {
 
 heart.addEventListener("click", () => {
   if (!screens.game2.classList.contains("active")) return;
-
   if (heartClicks >= 10) return;
 
   heartClicks += 1;
   const scale = 1 + heartClicks * 0.08;
-  const maxX = window.innerWidth - 120;
-  const maxY = window.innerHeight - 140;
-  const x = 60 + Math.random() * maxX;
-  const y = 120 + Math.random() * maxY;
+
+  const pageRect = screens.game2.getBoundingClientRect();
+  const heartRect = heart.getBoundingClientRect();
+
+  const scaledWidth = heartRect.width * scale;
+  const scaledHeight = heartRect.height * scale;
+
+  const halfW = scaledWidth / 2;
+  const halfH = scaledHeight / 2;
+
+  const minX = halfW + 10;
+  const maxX = pageRect.width - halfW - 10;
+
+  const titleSafeZone = 140;
+  const minY = Math.max(halfH + 10, titleSafeZone);
+  const maxY = pageRect.height - halfH - 20;
+
+  const safeXRange = Math.max(1, maxX - minX);
+  const safeYRange = Math.max(1, maxY - minY);
+
+  const x = minX + Math.random() * safeXRange;
+  const y = minY + Math.random() * safeYRange;
 
   heart.style.left = `${x}px`;
   heart.style.top = `${y}px`;
