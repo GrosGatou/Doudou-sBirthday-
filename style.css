@@ -195,13 +195,28 @@ h2 {
   margin-bottom: 18px;
 }
 
+.rules-box {
+  width: min(520px, 92vw);
+  margin: 0 auto 18px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 2px solid rgba(154, 47, 92, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  color: var(--dark);
+  text-align: center;
+}
+
+.rules-box p {
+  margin: 6px 0;
+}
+
 .stats {
   display: flex;
   gap: 18px;
   flex-wrap: wrap;
   font-weight: bold;
 }
-
 .grid-5x5 {
   margin: 0 auto;
   width: min(700px, 95vw);
