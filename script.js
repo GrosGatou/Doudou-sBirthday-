@@ -180,7 +180,7 @@ function endGame1(success) {
     });
   } else {
     openPopup(`
-      <h3>Tu mérites pas ton steack</h3>
+      <h3>Tu mérites pas ton Steacks</h3>
       <button id="retry-game-1">Recommencer</button>
     `);
 
