@@ -147,6 +147,10 @@ h2 {
   transition: width 0.5s ease, box-shadow 0.4s ease;
 }
 
+.progress-bar.ready {
+  animation: readyShake 2.2s ease-in-out infinite;
+}
+
 .progress-bar.ready .progress-fill {
   animation: glow 1s infinite alternate;
 }
@@ -158,6 +162,28 @@ h2 {
 
   to {
     box-shadow: 0 0 18px rgba(255, 255, 255, 1);
+  }
+}
+
+@keyframes readyShake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-1px);
+  }
+
+  50% {
+    transform: translateX(1px);
+  }
+
+  75% {
+    transform: translateX(-1px);
+  }
+
+  100% {
+    transform: translateX(0);
   }
 }
 
@@ -454,6 +480,12 @@ h2 {
 
 .hidden {
   display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-bar.ready {
+    animation: none;
+  }
 }
 
 @media (max-width: 700px) {
