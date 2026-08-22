@@ -239,12 +239,13 @@ function setupGame1() {
 
 /* GAME 2 */
 const heart = document.getElementById("heart");
+const heartGameBox = document.getElementById("heart-game-box");
 let heartClicks = 0;
 
 function setupGame2() {
   heartClicks = game2Done ? 10 : 0;
   heart.style.left = "50%";
-  heart.style.top = "45%";
+  heart.style.top = "50%";
   heart.style.transform = "translate(-50%, -50%) scale(1)";
 }
 
@@ -255,28 +256,22 @@ heart.addEventListener("click", () => {
   heartClicks += 1;
   const scale = 1 + heartClicks * 0.08;
 
-  const zoneRect = screens.game2.getBoundingClientRect();
-  const heartRect = heart.getBoundingClientRect();
+  const boxRect = heartGameBox.getBoundingClientRect();
+  const baseSize = 90;
+  const scaledSize = baseSize * scale;
+  const half = scaledSize / 2;
+  const margin = 12;
 
-  const scaledWidth = heartRect.width * scale;
-  const scaledHeight = heartRect.height * scale;
+  const minX = half + margin;
+  const maxX = boxRect.width - half - margin;
+  const minY = half + margin;
+  const maxY = boxRect.height - half - margin;
 
-  const margin = 16;
-  const halfW = scaledWidth / 2;
-  const halfH = scaledHeight / 2;
+  const x = minX + Math.random() * Math.max(1, maxX - minX);
+  const y = minY + Math.random() * Math.max(1, maxY - minY);
 
-  const minX = halfW + margin;
-  const maxX = zoneRect.width - halfW - margin;
-
-  const topSafeZone = 170;
-  const minY = Math.max(halfH + margin, topSafeZone);
-  const maxY = zoneRect.height - halfH - margin;
-
-  const finalX = minX + Math.random() * Math.max(1, maxX - minX);
-  const finalY = minY + Math.random() * Math.max(1, maxY - minY);
-
-  heart.style.left = `${finalX}px`;
-  heart.style.top = `${finalY}px`;
+  heart.style.left = `${x}px`;
+  heart.style.top = `${y}px`;
   heart.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
   if (heartClicks >= 10) {
