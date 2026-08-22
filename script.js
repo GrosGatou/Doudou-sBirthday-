@@ -167,7 +167,7 @@ function endGame1(success) {
 
   if (success) {
     openPopup(`
-      <img src="Steack.png" alt="Steack">
+      <img src="Steacks.png" alt="Steack">
       <h3>Bravo, voilà ton steack !</h3>
       <p>Alors lui tu l’as pas volé !</p>
       <button id="back-menu-1">Retour aux mini-jeux</button>
