@@ -42,12 +42,12 @@ body {
 }
 
 .main-photo {
-  width: min(420px, 88vw);
-  max-width: 88vw;
+  width: min(460px, 92vw);
   height: auto;
   border-radius: 18px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
+  display: block;
 }
 
 h1, h2 {
@@ -394,7 +394,7 @@ h1, h2 {
   background: white;
   border-radius: 22px;
   padding: 24px;
-  max-width: 520px;
+  max-width: 560px;
   width: 100%;
   text-align: center;
   color: var(--dark);
@@ -402,9 +402,9 @@ h1, h2 {
 
 .popup-content img {
   display: block;
-  width: min(360px, 82vw);
+  width: min(420px, 88vw);
   max-width: 100%;
-  max-height: 52vh;
+  max-height: 55vh;
   height: auto;
   object-fit: contain;
   object-position: center;
@@ -451,10 +451,10 @@ h1, h2 {
   }
 
   .main-photo {
-    width: min(360px, 92vw);
+    width: min(380px, 94vw);
   }
 
   .popup-content img {
-    width: min(300px, 84vw);
+    width: min(320px, 86vw);
   }
 }
