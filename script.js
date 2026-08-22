@@ -23,7 +23,10 @@ let game2Done = false;
 let game3Done = false;
 
 function showScreen(name) {
-  Object.values(screens).forEach(s => s.classList.remove("active"));
+  Object.values(screens).forEach((screen) => {
+    screen.classList.remove("active");
+  });
+
   screens[name].classList.add("active");
 }
 
@@ -36,13 +39,16 @@ function closePopup() {
   popup.classList.add("hidden");
 }
 
-popup.addEventListener("click", (e) => {
-  if (e.target === popup) closePopup();
+popup.addEventListener("click", (event) => {
+  if (event.target === popup) {
+    closePopup();
+  }
 });
 
 function updateProgress() {
   const percent = (completedGames / 3) * 100;
   progressFill.style.width = `${percent}%`;
+
   if (completedGames === 3) {
     progressBar.classList.add("ready");
   } else {
@@ -56,16 +62,19 @@ function markGameComplete(gameNum) {
     cardGame1.classList.add("unlocked");
     completedGames++;
   }
+
   if (gameNum === 2 && !game2Done) {
     game2Done = true;
     cardGame2.classList.add("unlocked");
     completedGames++;
   }
+
   if (gameNum === 3 && !game3Done) {
     game3Done = true;
     cardGame3.classList.add("unlocked");
     completedGames++;
   }
+
   updateProgress();
 }
 
@@ -95,6 +104,7 @@ progressBar.addEventListener("click", () => {
 });
 
 /* GAME 1 */
+
 let game1Running = false;
 let game1Score = 0;
 let game1Malus = 0;
@@ -112,11 +122,13 @@ const startGame1Btn = document.getElementById("start-game1");
 
 function clearGame1() {
   gridEl.innerHTML = "";
+
   for (let i = 0; i < 25; i++) {
     const cell = document.createElement("div");
     cell.className = "cell";
     gridEl.appendChild(cell);
   }
+
   game1GridBuilt = true;
 }
 
@@ -126,10 +138,15 @@ function randomItem() {
 
 function spawnGame1Item() {
   const cells = [...document.querySelectorAll("#game1-grid .cell")];
-  cells.forEach(c => c.innerHTML = "");
+
+  cells.forEach((cell) => {
+    cell.innerHTML = "";
+  });
+
   const index = Math.floor(Math.random() * cells.length);
   const type = randomItem();
   const img = document.createElement("img");
+
   img.src = type === "vache" ? "vache.png" : "courgette.png";
   img.alt = type;
 
@@ -142,14 +159,19 @@ function spawnGame1Item() {
     } else {
       game1Score -= 1;
       game1Malus += 1;
+
       scoreEl.textContent = game1Score;
       malusEl.textContent = game1Malus;
 
       minusAnim.classList.add("show");
+
       const rect = img.getBoundingClientRect();
       minusAnim.style.left = `${rect.left + rect.width / 2}px`;
       minusAnim.style.top = `${rect.top + rect.height / 2}px`;
-      setTimeout(() => minusAnim.classList.remove("show"), 350);
+
+      setTimeout(() => {
+        minusAnim.classList.remove("show");
+      }, 350);
     }
 
     if (game1Score >= 6) {
@@ -162,6 +184,7 @@ function spawnGame1Item() {
 
 function endGame1(success) {
   game1Running = false;
+
   clearInterval(game1Interval);
   clearInterval(game1Spawner);
 
@@ -173,27 +196,33 @@ function endGame1(success) {
       <button id="back-menu-1">Retour aux mini-jeux</button>
     `);
 
-    document.getElementById("back-menu-1").addEventListener("click", () => {
-      closePopup();
-      showScreen("menu");
-      markGameComplete(1);
-    });
+    document
+      .getElementById("back-menu-1")
+      .addEventListener("click", () => {
+        closePopup();
+        showScreen("menu");
+        markGameComplete(1);
+      });
   } else {
     openPopup(`
-      <h3>Tu mérites pas ton Steacks</h3>
+      <h3>Tu ne mérites pas ton steak</h3>
       <button id="retry-game-1">Recommencer</button>
     `);
 
-    document.getElementById("retry-game-1").addEventListener("click", () => {
-      closePopup();
-      showScreen("game1");
-      setupGame1();
-    });
+    document
+      .getElementById("retry-game-1")
+      .addEventListener("click", () => {
+        closePopup();
+        showScreen("game1");
+        setupGame1();
+      });
   }
 }
 
 function setupGame1() {
-  if (!game1GridBuilt) clearGame1();
+  if (!game1GridBuilt) {
+    clearGame1();
+  }
 
   game1Running = false;
   game1Score = 0;
@@ -206,7 +235,10 @@ function setupGame1() {
 
   clearInterval(game1Interval);
   clearInterval(game1Spawner);
-  [...document.querySelectorAll("#game1-grid .cell")].forEach(c => c.innerHTML = "");
+
+  [...document.querySelectorAll("#game1-grid .cell")].forEach((cell) => {
+    cell.innerHTML = "";
+  });
 
   startGame1Btn.onclick = () => {
     if (game1Running) return;
@@ -215,6 +247,7 @@ function setupGame1() {
     game1Score = 0;
     game1Malus = 0;
     game1Timer = 10;
+
     scoreEl.textContent = "0";
     malusEl.textContent = "0";
     timerEl.textContent = "10";
@@ -238,12 +271,14 @@ function setupGame1() {
 }
 
 /* GAME 2 */
+
 const heart = document.getElementById("heart");
 const heartGameBox = document.getElementById("heart-game-box");
 let heartClicks = 0;
 
 function setupGame2() {
   heartClicks = game2Done ? 10 : 0;
+
   heart.style.left = "50%";
   heart.style.top = "50%";
   heart.style.transform = "translate(-50%, -50%) scale(1)";
@@ -254,18 +289,19 @@ heart.addEventListener("click", () => {
   if (heartClicks >= 10) return;
 
   heartClicks += 1;
-  const scale = 1 + heartClicks * 0.08;
 
+  const scale = 1 + heartClicks * 0.08;
   const boxRect = heartGameBox.getBoundingClientRect();
-  const baseSize = 90;
-  const scaledSize = baseSize * scale;
-  const half = scaledSize / 2;
+
+  const baseHeartSize = 90;
+  const scaledHeartSize = baseHeartSize * scale;
+  const halfHeart = scaledHeartSize / 2;
   const margin = 12;
 
-  const minX = half + margin;
-  const maxX = boxRect.width - half - margin;
-  const minY = half + margin;
-  const maxY = boxRect.height - half - margin;
+  const minX = halfHeart + margin;
+  const maxX = boxRect.width - halfHeart - margin;
+  const minY = halfHeart + margin;
+  const maxY = boxRect.height - halfHeart - margin;
 
   const x = minX + Math.random() * Math.max(1, maxX - minX);
   const y = minY + Math.random() * Math.max(1, maxY - minY);
@@ -281,56 +317,74 @@ heart.addEventListener("click", () => {
       <button id="back-menu-2">Retour aux mini-jeux</button>
     `);
 
-    document.getElementById("back-menu-2").addEventListener("click", () => {
-      closePopup();
-      showScreen("menu");
-      markGameComplete(2);
-    });
+    document
+      .getElementById("back-menu-2")
+      .addEventListener("click", () => {
+        closePopup();
+        showScreen("menu");
+        markGameComplete(2);
+      });
   }
 });
 
 /* GAME 3 */
+
 const kingPiece = document.getElementById("king-piece");
 const bedZone = document.getElementById("bed-zone");
 let kingDropped = false;
 
 function setupGame3() {
   kingDropped = false;
+  kingPiece.style.display = "block";
   kingPiece.style.left = "10%";
-  kingPiece.style.top = "20%";
+  kingPiece.style.top = "18%";
 }
 
-kingPiece.addEventListener("dragstart", (e) => {
+kingPiece.addEventListener("dragstart", (event) => {
   if (kingDropped) return;
-  e.dataTransfer.setData("text/plain", "king");
+
+  event.dataTransfer.effectAllowed = "move";
+  event.dataTransfer.setData("text/plain", "king");
 });
 
-bedZone.addEventListener("dragover", (e) => {
-  e.preventDefault();
+bedZone.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  event.dataTransfer.dropEffect = "move";
 });
 
-bedZone.addEventListener("drop", (e) => {
-  e.preventDefault();
+bedZone.addEventListener("drop", (event) => {
+  event.preventDefault();
+
   if (kingDropped) return;
+
+  const draggedItem = event.dataTransfer.getData("text/plain");
+
+  if (draggedItem !== "king") return;
 
   kingDropped = true;
+  kingPiece.style.display = "none";
+
   openPopup(`
     <img src="RoiCouetteCouette.png" alt="Roi Couette-Couette">
     <h3>Le seul et unique Roi Couette-Couette</h3>
     <button id="back-menu-3">Retour aux mini-jeux</button>
   `);
 
-  document.getElementById("back-menu-3").addEventListener("click", () => {
-    closePopup();
-    showScreen("menu");
-    markGameComplete(3);
-  });
+  document
+    .getElementById("back-menu-3")
+    .addEventListener("click", () => {
+      closePopup();
+      showScreen("menu");
+      markGameComplete(3);
+    });
 });
 
 /* FINAL GIFT */
+
 const gift = document.getElementById("gift");
 const giftMessage = document.getElementById("gift-message");
 const confettis = document.getElementById("confettis");
+
 let giftClicks = 0;
 let giftOpened = false;
 
