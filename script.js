@@ -167,7 +167,7 @@ function endGame1(success) {
 
   if (success) {
     openPopup(`
-      <img src="Steacks.png" alt="Steack">
+      <img src="Steacks.png" alt="Steacks">
       <h3>Bravo, voilà ton steack !</h3>
       <p>Alors lui tu l’as pas volé !</p>
       <button id="back-menu-1">Retour aux mini-jeux</button>
@@ -255,30 +255,28 @@ heart.addEventListener("click", () => {
   heartClicks += 1;
   const scale = 1 + heartClicks * 0.08;
 
-  const pageRect = screens.game2.getBoundingClientRect();
+  const zoneRect = screens.game2.getBoundingClientRect();
   const heartRect = heart.getBoundingClientRect();
 
   const scaledWidth = heartRect.width * scale;
   const scaledHeight = heartRect.height * scale;
 
+  const margin = 16;
   const halfW = scaledWidth / 2;
   const halfH = scaledHeight / 2;
 
-  const minX = halfW + 10;
-  const maxX = pageRect.width - halfW - 10;
+  const minX = halfW + margin;
+  const maxX = zoneRect.width - halfW - margin;
 
-  const titleSafeZone = 140;
-  const minY = Math.max(halfH + 10, titleSafeZone);
-  const maxY = pageRect.height - halfH - 20;
+  const topSafeZone = 170;
+  const minY = Math.max(halfH + margin, topSafeZone);
+  const maxY = zoneRect.height - halfH - margin;
 
-  const safeXRange = Math.max(1, maxX - minX);
-  const safeYRange = Math.max(1, maxY - minY);
+  const finalX = minX + Math.random() * Math.max(1, maxX - minX);
+  const finalY = minY + Math.random() * Math.max(1, maxY - minY);
 
-  const x = minX + Math.random() * safeXRange;
-  const y = minY + Math.random() * safeYRange;
-
-  heart.style.left = `${x}px`;
-  heart.style.top = `${y}px`;
+  heart.style.left = `${finalX}px`;
+  heart.style.top = `${finalY}px`;
   heart.style.transform = `translate(-50%, -50%) scale(${scale})`;
 
   if (heartClicks >= 10) {
