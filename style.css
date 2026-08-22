@@ -222,17 +222,33 @@ h1, h2 {
 .heart-page {
   position: relative;
   min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heart-game-box {
+  position: relative;
+  width: min(78vw, 520px);
+  height: min(78vw, 520px);
+  min-width: 280px;
+  min-height: 280px;
+  margin: 20px auto 0;
+  background: rgba(255, 255, 255, 0.35);
+  border: 3px solid rgba(154, 47, 92, 0.35);
+  border-radius: 28px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
   overflow: hidden;
 }
 
 .heart-wrap {
   position: absolute;
   left: 50%;
-  top: 45%;
+  top: 50%;
   transform: translate(-50%, -50%) scale(1);
   width: 90px;
   cursor: pointer;
-  transition: left 0.25s ease, top 0.25s ease, transform 0.15s ease;
+  transition: left 0.22s ease, top 0.22s ease, transform 0.15s ease;
   user-select: none;
 }
 
@@ -456,5 +472,12 @@ h1, h2 {
 
   .popup-content img {
     width: min(320px, 86vw);
+  }
+
+  .heart-game-box {
+    width: min(88vw, 420px);
+    height: min(88vw, 420px);
+    min-width: 260px;
+    min-height: 260px;
   }
 }
